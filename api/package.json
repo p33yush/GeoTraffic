@@ -1,5 +1,5 @@
 {
-  "name": "db-worker",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "kafkajs": "^2.2.4",
-    "pg": "^8.23.0",
-    "redis": "^6.2.0"
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "redis": "^6.2.1",
+    "socket.io": "^4.8.3"
   }
 }
