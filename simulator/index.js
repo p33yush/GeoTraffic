@@ -49,7 +49,7 @@ async function startSimulator() {
         });
 
         console.log(`Sent event to Kafka: ${newEvent.type} at ${newEvent.latitude}, ${newEvent.longitude}`);
-    }, 3000);
+    }, 5000);
 }
 
 startSimulator().catch(console.error);
