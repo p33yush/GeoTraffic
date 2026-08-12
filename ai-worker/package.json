@@ -12,6 +12,7 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "groq-sdk": "^1.5.0",
-    "kafkajs": "^2.2.4"
+    "kafkajs": "^2.2.4",
+    "redis": "^6.2.1"
   }
 }

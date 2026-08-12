@@ -58,7 +58,6 @@ async function startWorker() {
                     3600, 
                     JSON.stringify(event)
                 );
-                await redisClient.publish('live-traffic',JSON.stringify(event));
                 
                 console.log(` Saved ${event.eventId} to PostGIS and Redis.`);
             } catch (err) {

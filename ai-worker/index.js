@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Kafka } = require('kafkajs');
 const Groq = require('groq-sdk');
-
+const {createClient} = require('redis');
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const kafka = new Kafka({
@@ -14,7 +14,12 @@ const consumer = kafka.consumer({ groupId: 'ai-processor-group' });
 async function startWorker() {
     await consumer.connect();
     console.log('ai worker connected');
-
+    
+    const redisClient = createClient({ url:
+        'redis://localhost:6379'
+    });
+    await redisClient.connect();
+    
     await consumer.subscribe({ topic: 'traffic-events', fromBeginning: false });
 
     await consumer.run({
@@ -39,6 +44,8 @@ async function startWorker() {
                 });
 
                 const severityScore = chatCompletion.choices[0]?.message?.content;
+                event.severity=severityScore;
+                await redisClient.publish('live-traffic',JSON.stringify(event));
                 console.log(`ai severity score for ${event.type} : ${severityScore}/10`);
             } catch (error) {
                 console.error("ai error:", error.message);
